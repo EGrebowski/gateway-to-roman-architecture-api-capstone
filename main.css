@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+
+/*
+.site-name {
+    padding-left: 15px;
+    padding-right: 5px;
+}*/
+
+.item-description {
+    padding-top: 30px;
+}
