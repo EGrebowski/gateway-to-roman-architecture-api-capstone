@@ -2,12 +2,22 @@
     box-sizing: border-box;
 }
 
+body {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
 img {
     width: 100%;
+    font-size: 0;
 }
 
 ul {
     list-style: none;
+}
+
+.thumbnails {
+    font-size: 0;
 }
 
 
@@ -17,6 +27,27 @@ ul {
     padding-right: 5px;
 }*/
 
-.item-description {
-    padding-top: 30px;
+.thumbnail {
+    width: 33.33%;
+}
+
+p {
+    clear: left;
+    padding-top: 20px;
+}
+
+li img {
+    width: 25%;
+    float: left;
+    margin-right: 5px;
+}
+
+li {
+    clear: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+footer {
+    text-align: center;
 }
