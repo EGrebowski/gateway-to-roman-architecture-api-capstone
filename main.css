@@ -74,6 +74,7 @@ main {
     background-color: rgba(255, 255, 255, 0.9);
     background-size: cover;
     height: 100%;
+    display: none;
 }
 
 main h3 {
@@ -81,6 +82,10 @@ main h3 {
     padding-top: 3rem;
     padding-bottom: 3rem;
     font-size: 2rem;
+}
+
+#results-page-wrapper {
+    /*    display: none*/
 }
 
 main section.results-list ul {
@@ -98,26 +103,40 @@ main section.results-list ul li {
 main section.results-list ul li img {
     width: 25%;
     float: left;
-    margin-right: 5px;
+    margin-right: .8rem;
+    margin-bottom: 1rem;
 }
 
-main section.item-description .thumbnails {
-    font-size: 0;
-    width: 33.33%;
+main section.item-description {
+    background-color: #ffffff;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: none;
 }
 
+main section.item-description h4 {
+    font-size: 1.2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    text-align: center;
+}
 
-/*
-.site-name {
-    padding-left: 15px;
-    padding-right: 5px;
-}*/
+main section.item-description a {
+    text-align: center;
+    display: inline-block;
+}
+
+main section.item-description img.url-link {
+    width: 70%;
+    margin: 0 auto;
+}
 
 main section.item-description p {
     clear: left;
-    padding-top: 20px;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 18px;
+    padding-top: 2rem;
+    font-family: 'Amiri', serif;
+    line-height: 1.5rem;
+    padding-bottom: 2rem;
 }
 
 
