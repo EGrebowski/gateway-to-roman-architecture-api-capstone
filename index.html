@@ -4,32 +4,35 @@
 <head>
     <title>Gateway to Roman Architecture</title>
     <meta name="description" content="Find locations and details for UNESCO World Heritage Sites for Greek and Roman architecture">
-    <link rel="stylesheet" href="main.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Amiri|Merriweather+Sans|Roboto+Condensed|Source+Sans+Pro" rel="stylesheet">
     <link rel="stylesheet" href="float-grid.css" type="text/css">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="main.css" type="text/css">
 </head>
 
 <body>
     <header role="banner">
         <h1>Gateway to Roman Architecture</h1>
+        <form action="#" name="whs-search" class="js-search-form">
+            <label for="search-input">Enter a country. Find classical UNESCO World Heritage Sites</label>
+            <select name="search-input" id="search-input">
+                <option value="Italy">Italy</option>
+                <option value="Greece">Greece</option>
+            </select>
+            <button type="submit">Go</button>
+        </form>
     </header>
 
-    <form action="#" name="whs-search" class="js-search-form">
-        <label for="search-input">Enter a country. Find classical UNESCO World Heritage Sites</label>
-        <select name="search-input" id="search-input">
-            <option value="Italy">Italy</option>
-            <option value="Greece">Greece</option>
-        </select>
-        <button type="submit">Go</button>
-    </form>
 
+
+<!--
     <main role="main" class="row">
+        <h3>World Heritage Sites with classical architecture in Italy</h3>
         <section class="results-list col-6">
             <ul>
                 <li><img src="github-images/user-story-2.JPG">The Historic Centre (Chorá) with the Monastery of Saint-John the Theologian and the Cave of the Apocalypse on the Island of Pátmos</li>
                 <li><img src="github-images/user-story-2.JPG">Memphis and its Necropolis – the Pyramid Fields from Giza to Dahshur</li>
             </ul>
-            <!--
+
             <ul class="row">
                 <li class="col-4">
                     <img src="github-images/user-story-2.JPG">
@@ -42,7 +45,7 @@
                 </li>
                 <li class="site-name col-8">Memphis and its Necropolis – the Pyramid Fields from Giza to Dahshur</li>
             </ul>
--->
+
         </section>
         <section class="results-map col-6">
             <img src="https://www.maps.com/media/catalog/product/cache/1/thumbnail/2500x/17f82f742ffe127f42dca9de82fb58b1/s/i/signature_world_wall_map-2.jpeg">
@@ -62,7 +65,9 @@
     <footer role="contentinfo">
         <p>Ellie Grebowski</p>
     </footer>
+-->
 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="index.js"></script>
 </body>
 
