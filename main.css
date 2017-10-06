@@ -18,6 +18,11 @@
 
 html {
     height: 100%;
+    background: url(roman-ruins-background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 body {
@@ -25,11 +30,6 @@ body {
     margin: 0 auto;
     font-family: 'Merriweather Sans', sans-serif;
     font-size: 16px;
-    background: url(roman-ruins-background.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
     /*    position: relative;*/
     height: 100%;
 }
@@ -40,10 +40,13 @@ img {
 }
 
 header {
-    padding-left: 2em;
-    position: relative;
-    top: 50%;
+    width: 80%;
+    /* padding-left: 2em; */
+    /* position: relative; */
+    /* top: 50%; */
     transform: translateY(-50%);
+    margin: 0 auto;
+    margin-top: 40%;
 }
 
 header h1 {
@@ -73,8 +76,7 @@ header form.js-search-form button {
 main {
     background-color: rgba(255, 255, 255, 0.9);
     background-size: cover;
-    height: 100%;
-    display: none;
+    /*    display: none;*/
 }
 
 main h3 {
@@ -108,10 +110,9 @@ main section.results-list ul li img {
 }
 
 main section.item-description {
-    background-color: #ffffff;
+    /*    background-color: #ffffff;*/
     padding-left: 2rem;
     padding-right: 2rem;
-    display: none;
 }
 
 main section.item-description h4 {
