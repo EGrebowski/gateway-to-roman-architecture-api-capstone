@@ -77,22 +77,70 @@ function displayWhsBasedOnSearch(stateName) {
 
             buildTheHtmlOutput += '</section>';
             buildTheHtmlOutput += '<section class="results-map col-6">';
+            //            buildTheHtmlOutput += '<h4>' + whsObjectValue.name_en + '</h4>';
+
+            //            buildTheHtmlOutput += getDataFromYoutube(whsObjectValue.name_en, 4);
+
+            $.getJSON("https://www.googleapis.com/youtube/v3/search", {
+                    part: "snippet", //Youtube API special parameter (please check documentation here https://developers.google.com/youtube/v3/docs/search/list)
+                    maxResults: 4, //number of results per page
+                    key: "AIzaSyA3QfiMOBzaSmbyBYiKADXNIWtfM45mfzY",
+                    q: whsObjectValue.name_en, //shearch query from the user
+                    type: "video" //only return videos (no channels or playlists) so we can take the video ID and link it back to Youtube
+                },
+                function (receivedApiData) {
+                    //show the json array received from the API call
+                    console.log(receivedApiData);
+                    // if there are no results it will show an error
+                    if (receivedApiData.pageInfo.totalResults == 0) {
+                        alert("No videos found!");
+                    }
+                    //if there are results, call the displaySearchResults
+                    else {
+
+
+
+                        $.each(receivedApiData.items, function (videosArrayKey, videosArrayValue) {
+
+                            //display the first image
+                            //                    if(videosArrayKey == 0) {
+                            //                        buildTheHtmlOutput += '<a href=""><img src="' + videosArrayValue[0].snippet.thumbnails.high.url + '" class="url-link"></a>';
+                            //                    }
+                            //display images from 2-4 images
+
+                            buildTheHtmlOutput += '<a href=""><img src="' + videosArrayValue.snippet.thumbnails.high.url + '" class="url-link"></a>';
+                            buildTheHtmlOutput += '<div class="thumbnails row">';
+                            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+                            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+                            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+                            buildTheHtmlOutput += '</div>';
+
+
+
+                        });
+
+
+
+                        //use the HTML output to show it in the index.html
+
+                    }
+                });
+
+            //            console.log(buildTheHtmlOutput);
 
             buildTheHtmlOutput += '</section>';
 
             buildTheHtmlOutput += '<section class="item-description">';
-            //            buildTheHtmlOutput += '<h4>' + whsObjectValue.name_en + '</h4>';
-            buildTheHtmlOutput += '<a href=""><img src="github-images/user-story-3.JPG" class="url-link"></a>';
-            buildTheHtmlOutput += '<div class="thumbnails row">';
-            buildTheHtmlOutput += '<img class="col-4" src="github-images/user-story-3.JPG">';
-            buildTheHtmlOutput += '<img class="col-4" src="github-images/user-story-3.JPG">';
-            buildTheHtmlOutput += '<img class="col-4" src="github-images/user-story-3.JPG">';
-            buildTheHtmlOutput += '</div>';
+
+
             buildTheHtmlOutput += '<p>' + whsObjectValue.short_description_en + '</p>';
 
             buildTheHtmlOutput += '</section>';
             buildTheHtmlOutput += '</section>';
+
+
         }
+
     });
     buildTheHtmlOutput += '<img src="https://www.maps.com/media/catalog/product/cache/1/thumbnail/2500x/17f82f742ffe127f42dca9de82fb58b1/s/i/signature_world_wall_map-2.jpeg">';
 
@@ -103,6 +151,54 @@ function displayWhsBasedOnSearch(stateName) {
 //1.3 function to display the details of a searched item
 
 //1.3.1 make api call
+function getDataFromYoutube(monument, numberOfImages) {
+    var buildTheHtmlOutput = "";
+    $.getJSON("https://www.googleapis.com/youtube/v3/search", {
+            part: "snippet", //Youtube API special parameter (please check documentation here https://developers.google.com/youtube/v3/docs/search/list)
+            maxResults: numberOfImages, //number of results per page
+            key: "AIzaSyA3QfiMOBzaSmbyBYiKADXNIWtfM45mfzY",
+            q: monument, //shearch query from the user
+            type: "video" //only return videos (no channels or playlists) so we can take the video ID and link it back to Youtube
+        },
+        function (receivedApiData) {
+            //show the json array received from the API call
+            console.log(receivedApiData);
+            // if there are no results it will show an error
+            if (receivedApiData.pageInfo.totalResults == 0) {
+                alert("No videos found!");
+            }
+            //if there are results, call the displaySearchResults
+            else {
+
+
+
+                $.each(receivedApiData.items, function (videosArrayKey, videosArrayValue) {
+
+                    //display the first image
+                    //                    if(videosArrayKey == 0) {
+                    //                        buildTheHtmlOutput += '<a href=""><img src="' + videosArrayValue[0].snippet.thumbnails.high.url + '" class="url-link"></a>';
+                    //                    }
+                    //display images from 2-4 images
+
+                    buildTheHtmlOutput += '<a href=""><img src="' + videosArrayValue.snippet.thumbnails.high.url + '" class="url-link"></a>';
+                    buildTheHtmlOutput += '<div class="thumbnails row">';
+                    buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+                    buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+                    buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+                    buildTheHtmlOutput += '</div>';
+
+
+
+                });
+
+
+
+                //use the HTML output to show it in the index.html
+
+            }
+        });
+    return buildTheHtmlOutput;
+}
 
 //1.3.2 display the results of the api call
 
