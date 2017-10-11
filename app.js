@@ -68,11 +68,11 @@ function displayWhsBasedOnSearch(stateName) {
     var buildTheHtmlOutput = '<h3>World Heritage Sites with classical architecture in ' + stateName + '</h3>';
     $.each(whsObject, function (whsObjectKey, whsObjectValue) {
         if (whsObjectValue.states_name_en == stateName) {
-            buildTheHtmlOutput += '<section id="results-page-wrapper">';
-            buildTheHtmlOutput += '<section class="results-list row" onclick="showItemDescription($(this))">';
-            buildTheHtmlOutput += '<ul class="col-12">';
-            buildTheHtmlOutput += '<li class="col-6"><img src="github-images/user-story-2.JPG"></li>';
-            buildTheHtmlOutput += '<li class="col-6">' + whsObjectValue.name_en + '</li>';
+            buildTheHtmlOutput += '<section id="results-page-wrapper" class="row">';
+            buildTheHtmlOutput += '<section class="results-list" onclick="showItemDescription($(this))">';
+            buildTheHtmlOutput += '<ul class="row">';
+            buildTheHtmlOutput += '<li class="col-4"><img src="github-images/user-story-2.JPG"></li>';
+            buildTheHtmlOutput += '<li class="col-8">' + whsObjectValue.name_en + '</li>';
             buildTheHtmlOutput += '</ul>';
 
             buildTheHtmlOutput += '</section>';
