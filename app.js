@@ -65,13 +65,13 @@ function showItemDescription(element) {
 
 // 1.2 function to search based on the drop down input (parse the object above)
 function displayWhsBasedOnSearch(stateName) {
-    var buildTheHtmlOutput = '<h3>World Heritage Sites with classical architecture in ' + stateName + '</h3>';
+    var buildTheHtmlOutput = '<h3>World Heritage Sites with Classical Architecture in ' + stateName + '</h3>';
     $.each(whsObject, function (whsObjectKey, whsObjectValue) {
         if (whsObjectValue.states_name_en == stateName) {
             buildTheHtmlOutput += '<section id="results-page-wrapper" class="row">';
             buildTheHtmlOutput += '<section class="results-list" onclick="showItemDescription($(this))">';
             buildTheHtmlOutput += '<ul class="row">';
-            buildTheHtmlOutput += '<li class="col-4"><img src="github-images/user-story-2.JPG"></li>';
+            buildTheHtmlOutput += '<li class="col-4 thumb-video-container-' + whsObjectKey + '"></li>';
             buildTheHtmlOutput += '<li class="col-8">' + whsObjectValue.name_en + '</li>';
             buildTheHtmlOutput += '</ul>';
 
@@ -79,66 +79,19 @@ function displayWhsBasedOnSearch(stateName) {
             buildTheHtmlOutput += '<section class="results-map col-6">';
             //            buildTheHtmlOutput += '<h4>' + whsObjectValue.name_en + '</h4>';
 
-            //            buildTheHtmlOutput += getDataFromYoutube(whsObjectValue.name_en, 4);
-
-            $.getJSON("https://www.googleapis.com/youtube/v3/search", {
-                    part: "snippet", //Youtube API special parameter (please check documentation here https://developers.google.com/youtube/v3/docs/search/list)
-                    maxResults: 4, //number of results per page
-                    key: "AIzaSyA3QfiMOBzaSmbyBYiKADXNIWtfM45mfzY",
-                    q: whsObjectValue.name_en, //shearch query from the user
-                    type: "video" //only return videos (no channels or playlists) so we can take the video ID and link it back to Youtube
-                },
-                function (receivedApiData) {
-                    //show the json array received from the API call
-                    console.log(receivedApiData);
-                    // if there are no results it will show an error
-                    if (receivedApiData.pageInfo.totalResults == 0) {
-                        alert("No videos found!");
-                    }
-                    //if there are results, call the displaySearchResults
-                    else {
-
-
-
-                        $.each(receivedApiData.items, function (videosArrayKey, videosArrayValue) {
-
-                            //display the first image
-                            //                    if(videosArrayKey == 0) {
-                            //                        buildTheHtmlOutput += '<a href=""><img src="' + videosArrayValue[0].snippet.thumbnails.high.url + '" class="url-link"></a>';
-                            //                    }
-                            //display images from 2-4 images
-
-                            buildTheHtmlOutput += '<a href=""><img src="' + videosArrayValue.snippet.thumbnails.high.url + '" class="url-link"></a>';
-                            buildTheHtmlOutput += '<div class="thumbnails row">';
-                            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
-                            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
-                            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
-                            buildTheHtmlOutput += '</div>';
-
-
-
-                        });
-
-
-
-                        //use the HTML output to show it in the index.html
-
-                    }
-                });
-
-            //            console.log(buildTheHtmlOutput);
-
             buildTheHtmlOutput += '</section>';
+
 
             buildTheHtmlOutput += '<section class="item-description">';
-
-
-            buildTheHtmlOutput += '<p>' + whsObjectValue.short_description_en + '</p>';
-
+            buildTheHtmlOutput += '<div class="item-description-video-' + whsObjectKey + '">';
+            buildTheHtmlOutput += '</div>';
+            if (whsObjectValue.short_description_en != "") {
+                buildTheHtmlOutput += whsObjectValue.short_description_en;
+            }
             buildTheHtmlOutput += '</section>';
             buildTheHtmlOutput += '</section>';
 
-
+            getDataFromYoutube(whsObjectValue.name_en, 4, whsObjectKey)
         }
 
     });
@@ -151,7 +104,7 @@ function displayWhsBasedOnSearch(stateName) {
 //1.3 function to display the details of a searched item
 
 //1.3.1 make api call
-function getDataFromYoutube(monument, numberOfImages) {
+function getDataFromYoutube(monument, numberOfImages, targetContainer) {
     var buildTheHtmlOutput = "";
     $.getJSON("https://www.googleapis.com/youtube/v3/search", {
             part: "snippet", //Youtube API special parameter (please check documentation here https://developers.google.com/youtube/v3/docs/search/list)
@@ -169,39 +122,48 @@ function getDataFromYoutube(monument, numberOfImages) {
             }
             //if there are results, call the displaySearchResults
             else {
-
-
-
-                $.each(receivedApiData.items, function (videosArrayKey, videosArrayValue) {
-
-                    //display the first image
-                    //                    if(videosArrayKey == 0) {
-                    //                        buildTheHtmlOutput += '<a href=""><img src="' + videosArrayValue[0].snippet.thumbnails.high.url + '" class="url-link"></a>';
-                    //                    }
-                    //display images from 2-4 images
-
-                    buildTheHtmlOutput += '<a href=""><img src="' + videosArrayValue.snippet.thumbnails.high.url + '" class="url-link"></a>';
-                    buildTheHtmlOutput += '<div class="thumbnails row">';
-                    buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
-                    buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
-                    buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
-                    buildTheHtmlOutput += '</div>';
-
-
-
-                });
-
-
-
-                //use the HTML output to show it in the index.html
-
+                displayYoutubeSearchResults(receivedApiData.items, numberOfImages, targetContainer);
             }
         });
-    return buildTheHtmlOutput;
 }
 
 //1.3.2 display the results of the api call
+function displayYoutubeSearchResults(videosArray, numberOfImages, targetContainer) {
 
+    //create an empty variable to store one LI for each one the results
+    var buildTheHtmlOutput = "";
+    var buildTheThubVideoOutput = "";
+
+    $.each(videosArray, function (videosArrayKey, videosArrayValue) {
+        //display the first image
+        if (videosArrayKey == 0) {
+            buildTheThubVideoOutput += "<a href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
+            buildTheThubVideoOutput += '<img src="' + videosArrayValue.snippet.thumbnails.medium.url + '" class="url-link"/>';
+            buildTheThubVideoOutput += '</a>';
+
+            buildTheHtmlOutput += '<div class="thumbnails row">';
+        }
+        //display images from 2-3
+
+
+        if ((videosArrayKey > 0) && (videosArrayKey < 3)) {
+            buildTheHtmlOutput += "<a href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
+            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+            buildTheHtmlOutput += '</a>';
+        }
+        //display last image
+        if (videosArrayKey == 3) {
+            buildTheHtmlOutput += "<a href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
+            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+            buildTheHtmlOutput += '</a>';
+            buildTheHtmlOutput += '</div>';
+        }
+
+    });
+    $(".thumb-video-container-" + targetContainer).html(buildTheThubVideoOutput);
+    //    console.log(buildTheHtmlOutput);
+    $(".item-description-video-" + targetContainer).html(buildTheHtmlOutput);
+}
 
 
 
