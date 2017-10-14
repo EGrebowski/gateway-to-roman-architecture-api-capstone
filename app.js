@@ -1,47 +1,22 @@
 //STEP 1 define variable, functions objects
 
-//var whsObject = [
-//    {
-//        "unique_number": 230,
-//        "id_no": 208,
-//        "name_en": "Cultural Landscape and Archaeological Remains of the Bamiyan Valley",
-//        "short_description_en": "<p>The cultural landscape and archaeological remains of the Bamiyan Valley represent the artistic and religious developments which from the 1st to the 13th centuries characterized ancient Bakhtria, integrating various cultural influences into the Gandhara school of Buddhist art. The area contains numerous Buddhist monastic ensembles and sanctuaries, as well as fortified edifices from the Islamic period. The site is also testimony to the tragic destruction by the Taliban of the two standing Buddha statues, which shook the world in March 2001.</p>",
-//        "justification_en": "<p><em>Criterion (i):</em> The Buddha statues and the cave art in Bamiyan Valley are an outstanding representation of the Gandharan school in Buddhist art in the Central Asian region.</p>\n<p><em>Criterion (ii)</em> : The artistic and architectural remains of Bamiyan Valley, and an important Buddhist centre on the Silk Road, are an exceptional testimony to the interchange of Indian, Hellenistic, Roman, Sasanian influences as the basis for the development of a particular artistic expression in the Gandharan school. To this can be added the Islamic influence in a later period.</p>\n<p><em>Criterion (iii):</em> The Bamiyan Valley bears an exceptional testimony to a cultural tradition in the Central Asian region, which has disappeared.</p>\n<p><em>Criterion (iv):</em> The Bamiyan Valley is an outstanding example of a cultural landscape which illustrates a significant period in Buddhism.</p>\n<p><em>Criterion (vi):</em> The Bamiyan Valley is the most monumental expression of the western Buddhism. It was an important centre of pilgrimage over many centuries. Due to their symbolic values, the monuments have suffered at different times of their existence, including the deliberate destruction in 2001, which shook the whole world.</p>",
-//        "date_inscribed": 2003,
-//        "secondary_dates": "",
-//        "danger_list": "Y 2003",
-//        "longitude": 67.82525,
-//        "latitude": 34.84694,
-//        "area_hectares": 158.9265,
-//        "criteria_txt": "(i)(ii)(iii)(iv)(vi)",
-//        "category": "Cultural",
-//        "states_name_en": "Afghanistan",
-//        "region_en": "Asia and the Pacific",
-//        "iso_code": "af",
-//        "udnp_code": "afg",
-//        "transboundary": 0
-//        },
-//    {
-//        "unique_number": 234,
-//        "id_no": 211,
-//        "name_en": "Minaret and Archaeological Remains of Jam",
-//        "short_description_en": "<p>The 65m-tall Minaret of Jam is a graceful, soaring structure, dating back to the 12th century. Covered in elaborate brickwork with a blue tile inscription at the top, it is noteworthy for the quality of its architecture and decoration, which represent the culmination of an architectural and artistic tradition in this region. Its impact is heightened by its dramatic setting, a deep river valley between towering mountains in the heart of the Ghur province.</p>",
-//        "justification_en": "<p><em>Criterion (ii):</em> The innovative architecture and decoration of the Minaret of Jam played a significant role in the development of the arts and architecture of the Indian sub-continent and beyond.</p>\n<p><em>Criterion (iii): </em>The Minaret of Jam and its associated archaeological remains constitute exceptional testimony to the power and quality of the Ghurid civilization that dominated its region in the 12th and 13th centuries.</p>\n<p><em>Criterion (iv): </em>The Minaret of Jam is an outstanding example of Islamic architecture and ornamentation in this region and played a significant role in their further dissemination.</p>",
-//        "date_inscribed": 2002,
-//        "secondary_dates": "",
-//        "danger_list": "Y 2002",
-//        "longitude": 64.51605556,
-//        "latitude": 34.39655556,
-//        "area_hectares": 70,
-//        "criteria_txt": "(ii)(iii)(iv)",
-//        "category": "Cultural",
-//        "states_name_en": "Afghanistan",
-//        "region_en": "Asia and the Pacific",
-//        "iso_code": "af",
-//        "udnp_code": "afg",
-//        "transboundary": 0
-//        }
-//    ];
+
+
+var globalMarkers = [
+    ['London Eye, London', 51.503454, -0.119562],
+    ['Palace of Westminster, London', 51.499633, -0.124755]
+];
+
+var globalInfoWindowContent = [
+    ['<div class="info_content">' +
+     '<h3>London Eye</h3>' +
+     '<p>The London Eye is a giant Ferris wheel situated on the banks of the River Thames. The entire structure is 135 metres (443 ft) tall and the wheel has a diameter of 120 metres (394 ft).</p>' + '</div>'],
+    ['<div class="info_content">' +
+     '<h3>Palace of Westminster</h3>' +
+     '<p>The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. Commonly known as the Houses of Parliament after its tenants.</p>' +
+     '</div>']
+];
+
 // 1.1 functiona to dynamically populate the dropp down
 function populateDropDown(whsObject) {
     var buildTheHtmlOutput = "";
@@ -65,6 +40,9 @@ function showItemDescription(element) {
 
 // 1.2 function to search based on the drop down input (parse the object above)
 function displayWhsBasedOnSearch(stateName) {
+    globalMarkers = [];
+    globalInfoWindowContent = [];
+
     var buildTheHtmlOutput = '<h3>World Heritage Sites with Classical Architecture in ' + stateName + '</h3>';
     $.each(whsObject, function (whsObjectKey, whsObjectValue) {
         if (whsObjectValue.states_name_en == stateName) {
@@ -76,10 +54,10 @@ function displayWhsBasedOnSearch(stateName) {
             buildTheHtmlOutput += '</ul>';
 
             buildTheHtmlOutput += '</section>';
-            buildTheHtmlOutput += '<section class="results-map col-6">';
-            //            buildTheHtmlOutput += '<h4>' + whsObjectValue.name_en + '</h4>';
-
-            buildTheHtmlOutput += '</section>';
+            //            buildTheHtmlOutput += '<section class="results-map col-6">';
+            //            //            buildTheHtmlOutput += '<h4>' + whsObjectValue.name_en + '</h4>';
+            //
+            //            buildTheHtmlOutput += '</section>';
 
 
             buildTheHtmlOutput += '<section class="item-description">';
@@ -91,14 +69,82 @@ function displayWhsBasedOnSearch(stateName) {
             buildTheHtmlOutput += '</section>';
             buildTheHtmlOutput += '</section>';
 
+            //populate the dynamically generated map elements
+            var globalMarkerElement = [whsObjectValue.name_en, whsObjectValue.latitude, whsObjectValue.longitude];
+            var globalInfoWindowElement = ['<div class="info_content">' + '<h3>' + whsObjectValue.name_en + '</h3>' + whsObjectValue.short_description_en + '</div>'];
+
+            globalMarkers.push(globalMarkerElement);
+            globalInfoWindowContent.push(globalInfoWindowElement);
+
+            //populate the images from youtube
             getDataFromYoutube(whsObjectValue.name_en, 4, whsObjectKey)
         }
 
     });
-    buildTheHtmlOutput += '<img src="https://www.maps.com/media/catalog/product/cache/1/thumbnail/2500x/17f82f742ffe127f42dca9de82fb58b1/s/i/signature_world_wall_map-2.jpeg">';
+    console.log(globalMarkers);
+
+    //    buildTheHtmlOutput += '<div id="map_wrapper">';
+    //    buildTheHtmlOutput += '<div id="map_canvas" class="mapping"></div>';
+    //    buildTheHtmlOutput += '</div>';
+    //    buildTheHtmlOutput += '<img src="https://www.maps.com/media/catalog/product/cache/1/thumbnail/2500x/17f82f742ffe127f42dca9de82fb58b1/s/i/signature_world_wall_map-2.jpeg">';
 
     $("main").html(buildTheHtmlOutput);
 
+    $("#map_wrapper").show();
+    initializeMap();
+//    initializeMap("#map_wrapper");
+    $("#map_wrapper").height("+=10");
+}
+
+
+function initializeMap() {
+    var map;
+    var bounds = new google.maps.LatLngBounds();
+    var mapOptions = {
+        mapTypeId: 'roadmap'
+    };
+
+    // Display a map on the page
+    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    map.setTilt(45);
+
+    // Multiple Markers
+    var markers = globalMarkers;
+
+    // Info Window Content
+    var infoWindowContent = globalInfoWindowContent;
+
+    // Display multiple markers on a map
+    var infoWindow = new google.maps.InfoWindow(),
+        marker, i;
+
+    // Loop through our array of markers & place each one on the map
+    for (i = 0; i < markers.length; i++) {
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        bounds.extend(position);
+        marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: markers[i][0]
+        });
+
+        // Allow each marker to have an info window
+        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+            return function () {
+                infoWindow.setContent(infoWindowContent[i][0]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
+
+        // Automatically center the map fitting all markers on the screen
+        map.fitBounds(bounds);
+    }
+
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
+        this.setZoom(3);
+        google.maps.event.removeListener(boundsListener);
+    });
 }
 
 //1.3 function to display the details of a searched item
@@ -126,6 +172,7 @@ function getDataFromYoutube(monument, numberOfImages, targetContainer) {
             }
         });
 }
+
 
 //1.3.2 display the results of the api call
 function displayYoutubeSearchResults(videosArray, numberOfImages, targetContainer) {
@@ -167,13 +214,19 @@ function displayYoutubeSearchResults(videosArray, numberOfImages, targetContaine
 
 
 
+
 //STEP 2 use variable, functions objects (event listeners)
 
 //2.1 when the page loads
 $(document).ready(function () {
     $("main").hide();
+        $("#map_wrapper").hide();
     //    $(".item-description").hide();
     populateDropDown(whsObject);
+    //    Append map
+    //    var script = document.createElement('script');
+    //    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCz0jzk4mdYonbpQzrJxCLPf-o6JY2B_Rs&callback=initializeMap"
+    //    document.body.appendChild(script);
 });
 
 //2.2 when click on search
