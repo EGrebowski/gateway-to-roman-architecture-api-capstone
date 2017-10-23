@@ -2,22 +2,11 @@
 
 
 
-var globalMarkers = [
-    ['London Eye, London', 51.503454, -0.119562],
-    ['Palace of Westminster, London', 51.499633, -0.124755]
-];
+var globalMarkers = [];
 
-var globalInfoWindowContent = [
-    ['<div class="info_content">' +
-     '<h3>London Eye</h3>' +
-     '<p>The London Eye is a giant Ferris wheel situated on the banks of the River Thames. The entire structure is 135 metres (443 ft) tall and the wheel has a diameter of 120 metres (394 ft).</p>' + '</div>'],
-    ['<div class="info_content">' +
-     '<h3>Palace of Westminster</h3>' +
-     '<p>The Palace of Westminster is the meeting place of the House of Commons and the House of Lords, the two houses of the Parliament of the United Kingdom. Commonly known as the Houses of Parliament after its tenants.</p>' +
-     '</div>']
-];
+var globalInfoWindowContent = [];
 
-// 1.1 functiona to dynamically populate the dropp down
+// 1.1 functiona to dynamically populate the drop down
 function populateDropDown(whsObject) {
     var buildTheHtmlOutput = "";
     var currentState = "";
@@ -81,18 +70,12 @@ function displayWhsBasedOnSearch(stateName) {
         }
 
     });
-    console.log(globalMarkers);
-
-    //    buildTheHtmlOutput += '<div id="map_wrapper">';
-    //    buildTheHtmlOutput += '<div id="map_canvas" class="mapping"></div>';
-    //    buildTheHtmlOutput += '</div>';
-    //    buildTheHtmlOutput += '<img src="https://www.maps.com/media/catalog/product/cache/1/thumbnail/2500x/17f82f742ffe127f42dca9de82fb58b1/s/i/signature_world_wall_map-2.jpeg">';
 
     $("main").html(buildTheHtmlOutput);
 
     $("#map_wrapper").show();
     initializeMap();
-//    initializeMap("#map_wrapper");
+    //    initializeMap("#map_wrapper");
     $("#map_wrapper").height("+=10");
 }
 
@@ -142,7 +125,7 @@ function initializeMap() {
 
     // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
     var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-        this.setZoom(3);
+        this.setZoom(5);
         google.maps.event.removeListener(boundsListener);
     });
 }
@@ -164,7 +147,12 @@ function getDataFromYoutube(monument, numberOfImages, targetContainer) {
             console.log(receivedApiData);
             // if there are no results it will show an error
             if (receivedApiData.pageInfo.totalResults == 0) {
-                alert("No videos found!");
+                //                alert("No videos found!");
+                var buildTheThubVideoOutput = "";
+                buildTheThubVideoOutput += "<a href='https://www.youtube.com/' target='_blank'>";
+                buildTheThubVideoOutput += '<img src="https://c1cleantechnicacom-wpengine.netdna-ssl.com/wp-content/themes/gonzo/images/no-image-featured-image.png" class="url-link"/>';
+                buildTheThubVideoOutput += '</a>';
+                $(".thumb-video-container-" + targetContainer).html(buildTheThubVideoOutput);
             }
             //if there are results, call the displaySearchResults
             else {
@@ -194,14 +182,14 @@ function displayYoutubeSearchResults(videosArray, numberOfImages, targetContaine
 
 
         if ((videosArrayKey > 0) && (videosArrayKey < 3)) {
-            buildTheHtmlOutput += "<a href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
-            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+            buildTheHtmlOutput += "<a class='col-4' href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
+            buildTheHtmlOutput += '<img src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
             buildTheHtmlOutput += '</a>';
         }
         //display last image
         if (videosArrayKey == 3) {
-            buildTheHtmlOutput += "<a href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
-            buildTheHtmlOutput += '<img class="col-4" src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
+            buildTheHtmlOutput += "<a class='col-4' href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
+            buildTheHtmlOutput += '<img src="' + videosArrayValue.snippet.thumbnails.high.url + '">';
             buildTheHtmlOutput += '</a>';
             buildTheHtmlOutput += '</div>';
         }
@@ -220,7 +208,7 @@ function displayYoutubeSearchResults(videosArray, numberOfImages, targetContaine
 //2.1 when the page loads
 $(document).ready(function () {
     $("main").hide();
-        $("#map_wrapper").hide();
+    $("#map_wrapper").hide();
     //    $(".item-description").hide();
     populateDropDown(whsObject);
     //    Append map
@@ -235,6 +223,9 @@ $(".js-search-form").on("submit", function (event) {
     var stateName = $("#search-input").val();
     displayWhsBasedOnSearch(stateName);
     $("main").show();
+    $('html, body').animate({
+        scrollTop: $("main").offset().top
+    }, 1000);
 });
 
 //2.3 when click on the item for details

@@ -101,6 +101,8 @@ main section.results-list ul li {
     padding-bottom: 1rem;
     font-family: 'Amiri', serif;
     line-height: 1.4rem;
+    font-size: 1.2rem;
+    cursor: pointer;
     /*    display: inline-block;*/
     /*    margin: 0 auto;*/
 }
@@ -147,6 +149,7 @@ main section.item-description p {
     font-family: 'Amiri', serif;
     line-height: 1.5rem;
     padding-bottom: 2rem;
+    font-size: 1rem;
 }
 
 
