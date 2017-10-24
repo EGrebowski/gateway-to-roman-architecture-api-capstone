@@ -14,7 +14,7 @@ From the home search page:
 * The user sees the webpage title, description/instructions, search box, and search button
 * The user selects a country from the dropdown and clicks "go"
 * Results page loads
-![landing page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-1.png)
+![landing page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/user-story-1.JPG)
 
 From the results page:
 * The user sees a header and list of results
@@ -22,15 +22,19 @@ From the results page:
 * Top section: user sees a list with a thumbnail image and the name of the site
 * Bottom section: user sees a map that plots all locations in results list
 * Items in both sections are clickable
-![results page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-2.png)
+![results page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/user-story-2.JPG)
 
 If user clicks on result in list or map:
 *  appears displaying the name, large image (clickable link to YouTube UNESCO video), three smaller clickable thumbnail images, and description
 * User can close window by clicking again on site title. Returns user to results page.
-![detailed results section](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-3.png)
+![detailed results section](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/user-story-3.JPG)
 
 ## Working Prototye
 A live example of the project can be found at https://egrebowski.github.io/gateway-to-roman-architecture-api-capstone
+![landing page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-1.png)
+![results page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-2.png)
+![detailed results section](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-3.png)
+
 
 ## Functionality
 This app's functionality includes:
