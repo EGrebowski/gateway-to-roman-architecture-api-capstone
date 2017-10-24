@@ -3,33 +3,31 @@ Thinkful API Capstone Project
 
 ## Background
 
-I built this app because I love visiting ancient classical monuments when I travel, and want to make it easier to find the best sites in a particular area when I plan travel.
+I built this app because I love visiting ancient classical monuments when I travel, and want to make it easier to find the best sites in a particular area when I plan a trip.
 
 ## User Story
-This app helps users plan travel itineraries by providing details on ancient Greek and Roman monuments from the UNESCO list of World Heritage Sites, combining information from UNESCO, Google Maps, and YouTube. The user is able to access a list of monuments and thier locations on a map, as well as a description and images for each.
+This app helps users plan travel itineraries by providing details on ancient Greek and Roman monuments from the UNESCO list of World Heritage Sites, combining information from UNESCO, Google Maps, and YouTube. The user is able to access a list of monuments and thier locations on a map, as well as a description and videos for each.
 
 As a user, I want to be able to pull a comprehensive list of Greek and Roman WHS and descriptions based on a search by country, so that I can plan my travel around them.
 
 From the home search page:
 * The user sees the webpage title, description/instructions, search box, and search button
-* The user types a country into the search box and clicks "go"
-* If input is invalid country: error message appears
-* If input is valid country: results page loaded
-![landing page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/user-story-1.JPG)
+* The user selects a country from the dropdown and clicks "go"
+* Results page loads
+![landing page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-1.png)
 
 From the results page:
-* The user sees the title of the website and description of results
-* If the country has no World Heritage Sites: message appears saying there are no WHS in that country
-* If the country does have WHS: display full list of results, divided into two sections:
-* Left section: user sees a list with a thumbnail image and the name of the site
-* Right section: user sees a map that plots all locations in results list
+* The user sees a header and list of results
+* Results divided into two sections:
+* Top section: user sees a list with a thumbnail image and the name of the site
+* Bottom section: user sees a map that plots all locations in results list
 * Items in both sections are clickable
-![results page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/user-story-2.JPG)
+![results page](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-2.png)
 
 If user clicks on result in list or map:
-* Pop-up appears displaying the name, large image (clickable link to YouTube UNESCO video), smaller thumbnail images, and description
-* User can close window by clicking x in corner. Returns user to results page.
-![detailed results section](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/user-story-3.JPG)
+*  appears displaying the name, large image (clickable link to YouTube UNESCO video), three smaller clickable thumbnail images, and description
+* User can close window by clicking again on site title. Returns user to results page.
+![detailed results section](https://github.com/EGrebowski/gateway-to-roman-architecture-api-capstone/blob/master/github-images/screenshot-3.png)
 
 ## Working Prototye
 A live example of the project can be found at https://egrebowski.github.io/gateway-to-roman-architecture-api-capstone

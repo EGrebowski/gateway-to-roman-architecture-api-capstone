@@ -101,7 +101,7 @@ main section.results-list ul li {
     padding-bottom: 1rem;
     font-family: 'Amiri', serif;
     line-height: 1.4rem;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     cursor: pointer;
     /*    display: inline-block;*/
     /*    margin: 0 auto;*/
@@ -117,8 +117,8 @@ main section.results-list ul li img {
 
 main section.item-description {
     /*    background-color: #ffffff;*/
-    padding-left: 2rem;
-    padding-right: 2rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
     display: none;
 }
 
@@ -149,7 +149,7 @@ main section.item-description p {
     font-family: 'Amiri', serif;
     line-height: 1.5rem;
     padding-bottom: 2rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 

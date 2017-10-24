@@ -66,7 +66,7 @@ function displayWhsBasedOnSearch(stateName) {
             globalInfoWindowContent.push(globalInfoWindowElement);
 
             //populate the images from youtube
-            getDataFromYoutube(whsObjectValue.name_en + 'UNESCO', 4, whsObjectKey)
+            getDataFromYoutube(whsObjectValue.name_en + ' UNESCO', 4, whsObjectKey)
         }
 
     });
