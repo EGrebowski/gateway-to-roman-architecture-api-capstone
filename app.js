@@ -1,12 +1,10 @@
 //STEP 1 define variable, functions objects
 
-
-
 var globalMarkers = [];
 
 var globalInfoWindowContent = [];
 
-// 1.1 functiona to dynamically populate the drop down
+// 1.1 function to dynamically populate the drop down
 function populateDropDown(whsObject) {
     var buildTheHtmlOutput = "";
     var currentState = "";
@@ -23,7 +21,7 @@ function populateDropDown(whsObject) {
 }
 
 function showItemDescription(element) {
-    console.log($(element).parent().find(".item-description"));
+    //    console.log($(element).parent().find(".item-description"));
     $(element).parent().find(".item-description").toggleClass("item-description-show");
 }
 
@@ -41,14 +39,7 @@ function displayWhsBasedOnSearch(stateName) {
             buildTheHtmlOutput += '<li class="col-4 thumb-video-container-' + whsObjectKey + '"></li>';
             buildTheHtmlOutput += '<li class="col-8">' + whsObjectValue.name_en + '</li>';
             buildTheHtmlOutput += '</ul>';
-
             buildTheHtmlOutput += '</section>';
-            //            buildTheHtmlOutput += '<section class="results-map col-6">';
-            //            //            buildTheHtmlOutput += '<h4>' + whsObjectValue.name_en + '</h4>';
-            //
-            //            buildTheHtmlOutput += '</section>';
-
-
             buildTheHtmlOutput += '<section class="item-description">';
             buildTheHtmlOutput += '<div class="item-description-video-' + whsObjectKey + '">';
             buildTheHtmlOutput += '</div>';
@@ -75,11 +66,10 @@ function displayWhsBasedOnSearch(stateName) {
 
     $("#map_wrapper").show();
     initializeMap();
-    //    initializeMap("#map_wrapper");
     $("#map_wrapper").height("+=10");
 }
 
-
+//1.3 function to initialize map
 function initializeMap() {
     var map;
     var bounds = new google.maps.LatLngBounds();
@@ -130,29 +120,25 @@ function initializeMap() {
     });
 }
 
-//1.3 function to display the details of a searched item
-
-//1.3.1 make api call
+//1.4.1 make api call
 function getDataFromYoutube(monument, numberOfImages, targetContainer) {
     var buildTheHtmlOutput = "";
     $.getJSON("https://www.googleapis.com/youtube/v3/search", {
-            part: "snippet", //Youtube API special parameter (please check documentation here https://developers.google.com/youtube/v3/docs/search/list)
-            maxResults: numberOfImages, //number of results per page
+            part: "snippet",
+            maxResults: numberOfImages,
             key: "AIzaSyA3QfiMOBzaSmbyBYiKADXNIWtfM45mfzY",
-            q: monument, //shearch query from the user
-            type: "video" //only return videos (no channels or playlists) so we can take the video ID and link it back to Youtube
+            q: monument,
+            type: "video"
         },
         function (receivedApiData) {
             //show the json array received from the API call
-            console.log(receivedApiData);
-            // if there are no results it will show an error
+            // if there are no results it will show a placeholder image
             if (receivedApiData.pageInfo.totalResults == 0) {
-                //                alert("No videos found!");
-                var buildTheThubVideoOutput = "";
-                buildTheThubVideoOutput += "<a href='https://www.youtube.com/' target='_blank'>";
-                buildTheThubVideoOutput += '<img src="https://c1cleantechnicacom-wpengine.netdna-ssl.com/wp-content/themes/gonzo/images/no-image-featured-image.png" class="url-link"/>';
-                buildTheThubVideoOutput += '</a>';
-                $(".thumb-video-container-" + targetContainer).html(buildTheThubVideoOutput);
+                var buildTheThumbVideoOutput = "";
+                buildTheThumbVideoOutput += "<a href='https://www.youtube.com/' target='_blank'>";
+                buildTheThumbVideoOutput += '<img src="no-images-featured-images.png" class="url-link"/>';
+                buildTheThumbVideoOutput += '</a>';
+                $(".thumb-video-container-" + targetContainer).html(buildTheThumbVideoOutput);
             }
             //if there are results, call the displaySearchResults
             else {
@@ -162,19 +148,19 @@ function getDataFromYoutube(monument, numberOfImages, targetContainer) {
 }
 
 
-//1.3.2 display the results of the api call
+//1.4.2 display the results of the api call
 function displayYoutubeSearchResults(videosArray, numberOfImages, targetContainer) {
 
     //create an empty variable to store one LI for each one the results
     var buildTheHtmlOutput = "";
-    var buildTheThubVideoOutput = "";
+    var buildTheThumbVideoOutput = "";
 
     $.each(videosArray, function (videosArrayKey, videosArrayValue) {
         //display the first image
         if (videosArrayKey == 0) {
-            buildTheThubVideoOutput += "<a href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
-            buildTheThubVideoOutput += '<img src="' + videosArrayValue.snippet.thumbnails.medium.url + '" class="url-link"/>';
-            buildTheThubVideoOutput += '</a>';
+            buildTheThumbVideoOutput += "<a href='https://www.youtube.com/watch?v=" + videosArrayValue.id.videoId + "' target='_blank'>";
+            buildTheThumbVideoOutput += '<img src="' + videosArrayValue.snippet.thumbnails.medium.url + '" class="url-link"/>';
+            buildTheThumbVideoOutput += '</a>';
 
             buildTheHtmlOutput += '<div class="thumbnails row">';
         }
@@ -195,12 +181,9 @@ function displayYoutubeSearchResults(videosArray, numberOfImages, targetContaine
         }
 
     });
-    $(".thumb-video-container-" + targetContainer).html(buildTheThubVideoOutput);
-    //    console.log(buildTheHtmlOutput);
+    $(".thumb-video-container-" + targetContainer).html(buildTheThumbVideoOutput);
     $(".item-description-video-" + targetContainer).html(buildTheHtmlOutput);
 }
-
-
 
 
 //STEP 2 use variable, functions objects (event listeners)
@@ -209,15 +192,10 @@ function displayYoutubeSearchResults(videosArray, numberOfImages, targetContaine
 $(document).ready(function () {
     $("main").hide();
     $("#map_wrapper").hide();
-    //    $(".item-description").hide();
     populateDropDown(whsObject);
-    //    Append map
-    //    var script = document.createElement('script');
-    //    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCz0jzk4mdYonbpQzrJxCLPf-o6JY2B_Rs&callback=initializeMap"
-    //    document.body.appendChild(script);
 });
 
-//2.2 when click on search
+// 2.2 when click on search
 $(".js-search-form").on("submit", function (event) {
     event.preventDefault();
     var stateName = $("#search-input").val();
@@ -227,5 +205,3 @@ $(".js-search-form").on("submit", function (event) {
         scrollTop: $("main").offset().top
     }, 1000);
 });
-
-//2.3 when click on the item for details

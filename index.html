@@ -13,59 +13,19 @@
     <header role="banner">
         <h1>Gateway to Roman Architecture</h1>
         <form action="#" name="whs-search" class="js-search-form">
-            <label for="search-input">Select a country. Find classical UNESCO World Heritage Sites</label><br>
+            <label for="search-input">Select a country. Find UNESCO World Heritage Sites with classical architecture.</label><br>
             <select name="search-input" id="search-input">
-                <option value="Italy">Italy</option>
-                <option value="Greece">Greece</option>
             </select>
             <button type="submit">Go</button>
         </form>
     </header>
 
+    <main role="main"></main>
 
-
-    <main role="main">
-        <!--
-<section id="results-page-wrapper" class="row">
-    <h3>World Heritage Sites with classical architecture in Italy</h3>
-    <section class="results-list">
-        <ul>
-            <li><img src="github-images/user-story-2.JPG">
-                <p></p>The Historic Centre (Chorá) with the Monastery of Saint-John the Theologian and the Cave of the Apocalypse on the Island of Pátmos
-            </li>
-            <li><img src="github-images/user-story-2.JPG"> Memphis and its Necropolis – the Pyramid Fields from Giza to Dahshur
-            </li>
-        </ul>
-
-    </section>
-    <section class="results-map">
-        <img src="https://www.maps.com/media/catalog/product/cache/1/thumbnail/2500x/17f82f742ffe127f42dca9de82fb58b1/s/i/signature_world_wall_map-2.jpeg">
-    </section>
-</section>
-
-<section class="item-description">
-    <h4>The Historic Centre (Chorá) with the Monastery of Saint-John the Theologian and the Cave of the Apocalypse on the Island of Pátmos</h4>
-    <a href=""><img src="github-images/user-story-3.JPG" class="url-link"></a>
-    <div class="thumbnails row">
-        <img class="col-4" src="github-images/user-story-3.JPG">
-        <img class="col-4" src="github-images/user-story-3.JPG">
-        <img class="col-4" src="github-images/user-story-3.JPG">
+    <div id="map_wrapper">
+        <div id="map_canvas" class="mapping"></div>
     </div>
-    <p>Qal’at al-Bahrain is a typical tell – an artificial mound created by many successive layers of human occupation. The strata of the 300 × 600 m tell testify to continuous human presence from about 2300 BC to the 16th century AD. About 25% of the site has been excavated, revealing structures of different types: residential, public, commercial, religious and military. They testify to the importance of the site, a trading port, over the centuries. On the top of the 12 m mound there is the impressive Portuguese fort, which gave the whole site its name, qal’a (fort). The site was the capital of the Dilmun, one of the most important ancient civilizations of the region. It contains the richest remains inventoried of this civilization, which was hitherto only known from written Sumerian references.</p>
-</section>
--->
 
-    </main>
-
-<div id="map_wrapper">
-    <div id="map_canvas" class="mapping"></div>
-</div>
-
-    <!--
-<footer role="contentinfo">
-    <p>Ellie Grebowski</p>
-</footer>
--->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="whs-json.js"></script>
     <script src="app.js"></script>
